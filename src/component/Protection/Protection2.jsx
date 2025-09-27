@@ -10,12 +10,12 @@ const Protection2 = () => {
     {
       title: "Streamline advice",
       text: "For households by capturing demands and needs for joint applicants simultaneously.",
-      img: "/port1.svg",
+      
     },
     {
       title: "Say goodbye to redundant data entry;",
       text: "Input our information once, and watch it populate both Solution Builder and Smartr365 seamlessly.",
-      img: "/port1.svg",
+     
     },
   ];
 
@@ -28,7 +28,6 @@ const Protection2 = () => {
     {
       title: "Receive automatic client notifications",
       text: "Key stages during the buying process.",
-      img: "/port2.svg",
     },
   ];
 
@@ -41,7 +40,6 @@ const Protection2 = () => {
             <img
               key={`img1-${idx}`}
               src={item.img}
-              alt={item.title}
               className="w-full max-w-md rounded-lg"
             />
           ))}
@@ -83,7 +81,6 @@ const Protection2 = () => {
             <img
               key={`img2-${idx}`}
               src={item.img}
-              alt={item.title}
               className="w-full max-w-md rounded-lg"
             />
           ))}
