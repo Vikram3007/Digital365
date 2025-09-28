@@ -1,79 +1,92 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { ChevronDown, ChevronUp, Menu, X } from "lucide-react";
 
 const Nav = () => {
-  const [featuresOpen, setFeaturesOpen] = useState(false);
-  const [aboutOpen, setAboutOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null); // track open dropdown
+  const [activeSubmenu, setActiveSubmenu] = useState(""); // track last clicked submenu
   const [mobileOpen, setMobileOpen] = useState(false);
+  const navRef = useRef(null);
 
-  const handleFeaturesToggle = () => {
-    setFeaturesOpen(!featuresOpen);
-    setAboutOpen(false);
+  const handleToggle = (menu) => {
+    setOpenDropdown((prev) => (prev === menu ? null : menu));
   };
 
-  const handleAboutToggle = () => {
-    setAboutOpen(!aboutOpen);
-    setFeaturesOpen(false);
-  };
+  // Click outside to close dropdown
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (navRef.current && !navRef.current.contains(e.target)) {
+        setOpenDropdown(null);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const elementsMenu = [
+    { to: "/mortgages", label: "Mortgages" },
+    { to: "/protection", label: "Protection" },
+    { to: "/administration", label: "Administration" },
+    { to: "/smartrconnect", label: "SmartrConnect" },
+    { to: "/leads-business-contacts", label: "Leads & Business Contacts" },
+    { to: "/homebuyer", label: "HomeBuyer" },
+  ];
+
+  const aboutMenu = [
+    { to: "/about-us", label: "About Us" },
+    { to: "/team", label: "Team" },
+  ];
+
+  const renderMenuItems = (menuArray) =>
+    menuArray.map((item) => (
+      <li key={item.to}>
+        <Link
+          to={item.to}
+          className={`block p-3 transition-colors hover:bg-gray-100 ${
+            activeSubmenu === item.to
+              ? "bg-blue-50 text-blue-600 font-semibold"
+              : ""
+          }`}
+          onClick={() => {
+            setActiveSubmenu(item.to);
+            setOpenDropdown(null);
+            setMobileOpen(false);
+          }}
+        >
+          {item.label}
+        </Link>
+      </li>
+    ));
 
   return (
-    <header className="flex items-center justify-between px-6 md:px-10 py-4 bg-amber-100 text-black shadow">
+    <header className="flex items-center justify-between px-6 md:px-10 py-4 bg-blue-900 text-white shadow relative">
       {/* Logo */}
       <Link to="/" className="text-2xl font-bold">
-         Digital.³⁶⁵™ 
+        Digital.³⁶⁵™
       </Link>
 
       {/* Desktop Navigation */}
-      <nav className="hidden md:flex items-center gap-6">
+      <nav className="hidden md:flex items-center gap-6" ref={navRef}>
         {/* Elements */}
         <div className="relative">
           <button
-            onClick={handleFeaturesToggle}
-            className="flex items-center font-semibold hover:text-gray-700 transition-colors"
-            aria-expanded={featuresOpen}
-            aria-controls="features-menu"
+            onClick={() => handleToggle("elements")}
+            className={`flex items-center font-semibold px-2 py-1 rounded-md transition-colors ${
+              openDropdown === "elements"
+                ? "bg-blue-700 text-white"
+                : "hover:bg-blue-800"
+            }`}
           >
-            Elements {featuresOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            Elements{" "}
+            {openDropdown === "elements" ? (
+              <ChevronUp size={16} className="ml-1" />
+            ) : (
+              <ChevronDown size={16} className="ml-1" />
+            )}
           </button>
-          {featuresOpen && (
-            <ul
-              id="features-menu"
-              className="absolute left-0 mt-2 w-56 bg-white text-black shadow-lg rounded-md text-sm z-20"
-            >
-              <li>
-                <Link to="/mortgages" className="block p-3 hover:bg-gray-100 transition-colors">
-                  Mortgages
-                </Link>
-              </li>
-              <li>
-                <Link to="/protection" className="block p-3 hover:bg-gray-100 transition-colors">
-                  Protection
-                </Link>
-              </li>
-              <li>
-                <Link to="/administration" className="block p-3 hover:bg-gray-100 transition-colors">
-                  Administration
-                </Link>
-              </li>
-              <li>
-                <Link to="/smartrconnect" className="block p-3 hover:bg-gray-100 transition-colors">
-                  SmartrConnect
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/leads-business-contacts"
-                  className="block p-3 hover:bg-gray-100 transition-colors"
-                >
-                  Leads & Business Contacts
-                </Link>
-              </li>
-              <li>
-                <Link to="/homebuyer" className="block p-3 hover:bg-gray-100 transition-colors">
-                  HomeBuyer
-                </Link>
-              </li>
+          {openDropdown === "elements" && (
+            <ul className="absolute left-0 mt-2 w-56 bg-white text-black shadow-lg rounded-md text-sm z-20">
+              {renderMenuItems(elementsMenu)}
             </ul>
           )}
         </div>
@@ -81,28 +94,23 @@ const Nav = () => {
         {/* About */}
         <div className="relative">
           <button
-            onClick={handleAboutToggle}
-            className="flex items-center font-semibold hover:text-gray-700 transition-colors"
-            aria-expanded={aboutOpen}
-            aria-controls="about-menu"
+            onClick={() => handleToggle("about")}
+            className={`flex items-center font-semibold px-2 py-1 rounded-md transition-colors ${
+              openDropdown === "about"
+                ? "bg-blue-700 text-white"
+                : "hover:bg-blue-800"
+            }`}
           >
-            About {aboutOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            About{" "}
+            {openDropdown === "about" ? (
+              <ChevronUp size={16} className="ml-1" />
+            ) : (
+              <ChevronDown size={16} className="ml-1" />
+            )}
           </button>
-          {aboutOpen && (
-            <ul
-              id="about-menu"
-              className="absolute left-0 mt-2 w-44 bg-white text-black shadow-lg rounded-md text-sm z-20"
-            >
-              <li>
-                <Link to="/about-us" className="block p-3 hover:bg-gray-100 transition-colors">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link to="/team" className="block p-3 hover:bg-gray-100 transition-colors">
-                  Team
-                </Link>
-              </li>
+          {openDropdown === "about" && (
+            <ul className="absolute left-0 mt-2 w-44 bg-white text-black shadow-lg rounded-md text-sm z-20">
+              {renderMenuItems(aboutMenu)}
             </ul>
           )}
         </div>
@@ -110,7 +118,10 @@ const Nav = () => {
         {/* Contacts */}
         <Link
           to="/contacts"
-          className="font-semibold hover:text-gray-700 transition-colors"
+          className={`font-semibold px-2 py-1 rounded-md transition-colors hover:bg-blue-800 ${
+            activeSubmenu === "/contacts" ? "text-blue-300 font-semibold" : ""
+          }`}
+          onClick={() => setActiveSubmenu("/contacts")}
         >
           Contacts
         </Link>
@@ -118,7 +129,12 @@ const Nav = () => {
         {/* Book Demo */}
         <Link
           to="/book-demo"
-          className="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-gray-800 transition-colors"
+          className={`px-5 py-2 rounded-full transition-colors ${
+            activeSubmenu === "/book-demo"
+              ? "bg-blue-700 text-white"
+              : "bg-blue-600 text-white hover:bg-gray-800"
+          }`}
+          onClick={() => setActiveSubmenu("/book-demo")}
         >
           Book a Demo
         </Link>
@@ -135,59 +151,59 @@ const Nav = () => {
       {/* Mobile Menu */}
       {mobileOpen && (
         <div className="absolute top-16 left-0 w-full bg-amber-100 shadow-md flex flex-col items-start p-6 space-y-4 md:hidden z-50">
+          {/* Elements */}
           <button
-            onClick={handleFeaturesToggle}
+            onClick={() => handleToggle("elements")}
             className="flex items-center justify-between w-full font-semibold"
           >
-            Elements {featuresOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            Elements{" "}
+            {openDropdown === "elements" ? (
+              <ChevronUp size={16} />
+            ) : (
+              <ChevronDown size={16} />
+            )}
           </button>
-          {featuresOpen && (
-            <ul className="pl-4 space-y-2">
-              <li>
-                <Link to="/mortgages" className="block hover:text-gray-700">Mortgages</Link>
-              </li>
-              <li>
-                <Link to="/protection" className="block hover:text-gray-700">Protection</Link>
-              </li>
-              <li>
-                <Link to="/administration" className="block hover:text-gray-700">Administration</Link>
-              </li>
-              <li>
-                <Link to="/smartrconnect" className="block hover:text-gray-700">SmartrConnect</Link>
-              </li>
-              <li>
-                <Link to="/leads-business-contacts" className="block hover:text-gray-700">Leads & Business Contacts</Link>
-              </li>
-              <li>
-                <Link to="/homebuyer" className="block hover:text-gray-700">HomeBuyer</Link>
-              </li>
+          {openDropdown === "elements" && (
+            <ul className="pl-4 space-y-2 w-full">
+              {renderMenuItems(elementsMenu)}
             </ul>
           )}
 
+          {/* About */}
           <button
-            onClick={handleAboutToggle}
+            onClick={() => handleToggle("about")}
             className="flex items-center justify-between w-full font-semibold"
           >
-            About {aboutOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            About{" "}
+            {openDropdown === "about" ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
           </button>
-          {aboutOpen && (
-            <ul className="pl-4 space-y-2">
-              <li>
-                <Link to="/about-us" className="block hover:text-gray-700">About Us</Link>
-              </li>
-              <li>
-                <Link to="/team" className="block hover:text-gray-700">Team</Link>
-              </li>
-            </ul>
+          {openDropdown === "about" && (
+            <ul className="pl-4 space-y-2 w-full">{renderMenuItems(aboutMenu)}</ul>
           )}
 
-          <Link to="/contacts" className="font-semibold hover:text-gray-700">
+          {/* Contacts */}
+          <Link
+            to="/contacts"
+            className={`font-semibold w-full ${
+              activeSubmenu === "/contacts" ? "text-blue-600 font-semibold" : ""
+            }`}
+            onClick={() => {
+              setActiveSubmenu("/contacts");
+              setMobileOpen(false);
+            }}
+          >
             Contacts
           </Link>
 
+          {/* Book Demo */}
           <Link
             to="/book-demo"
-            className="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-gray-800 transition-colors"
+            className={`px-5 py-2 rounded-full transition-colors w-full text-center ${
+              activeSubmenu === "/book-demo"
+                ? "bg-blue-700 text-white"
+                : "bg-blue-600 text-white hover:bg-gray-800"
+            }`}
+            onClick={() => setActiveSubmenu("/book-demo")}
           >
             Book a Demo
           </Link>
