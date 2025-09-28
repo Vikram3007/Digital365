@@ -60,7 +60,7 @@ const Protection2 = () => {
         </div>
       </div>
 
-      {/* Second Section: Content Left, Image Right */}
+      {/* Second Section: Contents Left, Image Right */}
       <div className="flex flex-col md:flex-row items-start gap-8 md:gap-16">
         <div className="md:w-1/2 flex flex-col space-y-4">
           {items2.map((item, idx) => (

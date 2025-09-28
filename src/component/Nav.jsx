@@ -181,7 +181,7 @@ const Nav = () => {
             <ul className="pl-4 space-y-2 w-full">{renderMenuItems(aboutMenu)}</ul>
           )}
 
-          {/* Contacts */}
+          {/* Contact */}
           <Link
             to="/contacts"
             className={`font-semibold w-full ${
