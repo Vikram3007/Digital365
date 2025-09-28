@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { ChevronDown, ChevronUp, Menu, X } from "lucide-react";
 
 const Nav = () => {
-  const [openDropdown, setOpenDropdown] = useState(null); // track open dropdown
-  const [activeSubmenu, setActiveSubmenu] = useState(""); // track last clicked submenu
+  const [openDropdown, setOpenDropdown] = useState(null); // track dropdown
+  const [activeSubmenu, setActiveSubmenu] = useState(""); // active link
   const [mobileOpen, setMobileOpen] = useState(false);
   const navRef = useRef(null);
 
@@ -37,7 +37,6 @@ const Nav = () => {
     { to: "/team", label: "Team" },
   ];
 
-  // render menu items (desktop + mobile)
   const renderMenuItems = (menuArray) =>
     menuArray.map((item) => (
       <li key={item.to}>
@@ -50,9 +49,8 @@ const Nav = () => {
           }`}
           onClick={() => {
             setActiveSubmenu(item.to);
-            // mobile menu open-இருக்கும்போது menu close செய்ய வேண்டாம்
-            if (!mobileOpen) setOpenDropdown(null);
-            if (mobileOpen) setMobileOpen(false); // menu hide after click in mobile
+            if (mobileOpen) setMobileOpen(false); // mobile menu hide after click
+            setOpenDropdown(null); // close dropdown
           }}
         >
           {item.label}
@@ -69,7 +67,7 @@ const Nav = () => {
 
       {/* Desktop Navigation */}
       <nav className="hidden md:flex items-center gap-6">
-        {/* Elements */}
+        {/* Elements Dropdown */}
         <div className="relative">
           <button
             onClick={() => handleToggle("elements")}
@@ -93,7 +91,7 @@ const Nav = () => {
           )}
         </div>
 
-        {/* About */}
+        {/* About Dropdown */}
         <div className="relative">
           <button
             onClick={() => handleToggle("about")}
@@ -152,7 +150,7 @@ const Nav = () => {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="absolute top-16 left-0 w-full bg-amber-100 shadow-md flex flex-col items-start p-6 space-y-4 md:hidden z-50">
+        <div className="absolute top-16 left-0 w-full bg-amber-100 shadow-md flex flex-col items-start p-6 space-y-4 md:hidden z-50 relative">
           {/* Elements */}
           <div className="w-full">
             <button
@@ -167,9 +165,7 @@ const Nav = () => {
               )}
             </button>
             {openDropdown === "elements" && (
-              <ul className="pl-4 space-y-2 w-full">
-                {renderMenuItems(elementsMenu)}
-              </ul>
+              <ul className="pl-4 space-y-2 w-full">{renderMenuItems(elementsMenu)}</ul>
             )}
           </div>
 
@@ -187,7 +183,7 @@ const Nav = () => {
             )}
           </div>
 
-          {/* Contact */}
+          {/* Contacts */}
           <Link
             to="/contacts"
             className={`font-semibold w-full ${
