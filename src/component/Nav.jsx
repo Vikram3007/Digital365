@@ -197,7 +197,7 @@ const Nav = () => {
             Contacts
           </Link>
 
-          {/* Book Demo */}
+          {/* Bok Demo */}
           <Link
             to="/book-demo"
             className={`px-5 py-2 rounded-full transition-colors w-full text-center ${
