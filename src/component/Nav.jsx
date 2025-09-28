@@ -37,6 +37,7 @@ const Nav = () => {
     { to: "/team", label: "Team" },
   ];
 
+  // render menu items (desktop + mobile)
   const renderMenuItems = (menuArray) =>
     menuArray.map((item) => (
       <li key={item.to}>
@@ -49,8 +50,9 @@ const Nav = () => {
           }`}
           onClick={() => {
             setActiveSubmenu(item.to);
-            setOpenDropdown(null);
-            setMobileOpen(false);
+            // mobile menu open-இருக்கும்போது menu close செய்ய வேண்டாம்
+            if (!mobileOpen) setOpenDropdown(null);
+            if (mobileOpen) setMobileOpen(false); // menu hide after click in mobile
           }}
         >
           {item.label}
@@ -59,14 +61,14 @@ const Nav = () => {
     ));
 
   return (
-    <header className="flex items-center justify-between px-6 md:px-10 py-4 bg-blue-900 text-white shadow relative">
+    <header className="flex items-center justify-between px-6 md:px-10 py-4 bg-blue-900 text-white shadow relative" ref={navRef}>
       {/* Logo */}
       <Link to="/" className="text-2xl font-bold">
         Digital.³⁶⁵™
       </Link>
 
       {/* Desktop Navigation */}
-      <nav className="hidden md:flex items-center gap-6" ref={navRef}>
+      <nav className="hidden md:flex items-center gap-6">
         {/* Elements */}
         <div className="relative">
           <button
@@ -152,34 +154,38 @@ const Nav = () => {
       {mobileOpen && (
         <div className="absolute top-16 left-0 w-full bg-amber-100 shadow-md flex flex-col items-start p-6 space-y-4 md:hidden z-50">
           {/* Elements */}
-          <button
-            onClick={() => handleToggle("elements")}
-            className="flex items-center justify-between w-full font-semibold"
-          >
-            Elements{" "}
-            {openDropdown === "elements" ? (
-              <ChevronUp size={16} />
-            ) : (
-              <ChevronDown size={16} />
+          <div className="w-full">
+            <button
+              onClick={() => handleToggle("elements")}
+              className="flex items-center justify-between w-full font-semibold"
+            >
+              Elements{" "}
+              {openDropdown === "elements" ? (
+                <ChevronUp size={16} />
+              ) : (
+                <ChevronDown size={16} />
+              )}
+            </button>
+            {openDropdown === "elements" && (
+              <ul className="pl-4 space-y-2 w-full">
+                {renderMenuItems(elementsMenu)}
+              </ul>
             )}
-          </button>
-          {openDropdown === "elements" && (
-            <ul className="pl-4 space-y-2 w-full">
-              {renderMenuItems(elementsMenu)}
-            </ul>
-          )}
+          </div>
 
           {/* About */}
-          <button
-            onClick={() => handleToggle("about")}
-            className="flex items-center justify-between w-full font-semibold"
-          >
-            About{" "}
-            {openDropdown === "about" ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-          </button>
-          {openDropdown === "about" && (
-            <ul className="pl-4 space-y-2 w-full">{renderMenuItems(aboutMenu)}</ul>
-          )}
+          <div className="w-full">
+            <button
+              onClick={() => handleToggle("about")}
+              className="flex items-center justify-between w-full font-semibold"
+            >
+              About{" "}
+              {openDropdown === "about" ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            </button>
+            {openDropdown === "about" && (
+              <ul className="pl-4 space-y-2 w-full">{renderMenuItems(aboutMenu)}</ul>
+            )}
+          </div>
 
           {/* Contact */}
           <Link
