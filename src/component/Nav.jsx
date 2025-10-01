@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ChevronDown, ChevronUp, Menu, X } from "lucide-react";
 
 const Nav = () => {
@@ -7,12 +7,21 @@ const Nav = () => {
   const [activeSubmenu, setActiveSubmenu] = useState(""); // active link
   const [mobileOpen, setMobileOpen] = useState(false);
   const navRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleToggle = (menu) => {
     setOpenDropdown((prev) => (prev === menu ? null : menu));
   };
 
-  // Click outside to close dropdown
+  // Navigation handler
+  const handleNavigation = (path) => {
+    setActiveSubmenu(path);
+    setMobileOpen(false); // close mobile menu
+    setOpenDropdown(null); // close dropdown
+    navigate(path); // navigate route
+  };
+
+  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (navRef.current && !navRef.current.contains(e.target)) {
@@ -23,6 +32,7 @@ const Nav = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Menu items
   const elementsMenu = [
     { to: "/mortgages", label: "Mortgages" },
     { to: "/protection", label: "Protection" },
@@ -37,41 +47,43 @@ const Nav = () => {
     { to: "/team", label: "Team" },
   ];
 
+  // Reusable submenu
   const renderMenuItems = (menuArray) =>
     menuArray.map((item) => (
       <li key={item.to}>
-        <Link
-          to={item.to}
-          className={`block p-3 transition-colors hover:bg-gray-100 ${
+        <button
+          onClick={() => handleNavigation(item.to)}
+          className={`block w-full text-left p-3 transition-colors hover:bg-gray-100 ${
             activeSubmenu === item.to
               ? "bg-blue-50 text-blue-600 font-semibold"
               : ""
           }`}
-          onClick={() => {
-            setActiveSubmenu(item.to);
-            if (mobileOpen) setMobileOpen(false); // mobile menu hide after click
-            setOpenDropdown(null); // close dropdown
-          }}
         >
           {item.label}
-        </Link>
+        </button>
       </li>
     ));
 
   return (
-    <header className="flex items-center justify-between px-6 md:px-10 py-4 bg-blue-900 text-white shadow relative" ref={navRef}>
+    <header
+      className="flex items-center justify-between px-6 md:px-10 py-4 bg-amber-500 text-white shadow relative"
+      ref={navRef}
+    >
       {/* Logo */}
-      <Link to="/" className="text-2xl font-bold">
+      <button
+        onClick={() => handleNavigation("/")}
+        className="text-2xl font-bold font-roboto"
+      >
         Digital.³⁶⁵™
-      </Link>
+      </button>
 
       {/* Desktop Navigation */}
-      <nav className="hidden md:flex items-center gap-6">
+      <nav className="hidden md:flex justify-end font-bold font-lora mr-28 gap-6 items-center">
         {/* Elements Dropdown */}
         <div className="relative">
           <button
             onClick={() => handleToggle("elements")}
-            className={`flex items-center font-semibold px-2 py-1 rounded-md transition-colors ${
+            className={`flex items-center px-3 py-2 rounded-md transition-colors ${
               openDropdown === "elements"
                 ? "bg-blue-700 text-white"
                 : "hover:bg-blue-800"
@@ -85,7 +97,7 @@ const Nav = () => {
             )}
           </button>
           {openDropdown === "elements" && (
-            <ul className="absolute left-0 mt-2 w-56 bg-white text-black shadow-lg rounded-md text-sm z-20">
+            <ul className="absolute left-0 mt-2 w-56 bg-white text-black shadow-lg rounded-md text-sm z-20 animate-fade-in">
               {renderMenuItems(elementsMenu)}
             </ul>
           )}
@@ -95,7 +107,7 @@ const Nav = () => {
         <div className="relative">
           <button
             onClick={() => handleToggle("about")}
-            className={`flex items-center font-semibold px-2 py-1 rounded-md transition-colors ${
+            className={`flex items-center px-3 py-2 rounded-md transition-colors ${
               openDropdown === "about"
                 ? "bg-blue-700 text-white"
                 : "hover:bg-blue-800"
@@ -109,35 +121,35 @@ const Nav = () => {
             )}
           </button>
           {openDropdown === "about" && (
-            <ul className="absolute left-0 mt-2 w-44 bg-white text-black shadow-lg rounded-md text-sm z-20">
+            <ul className="absolute left-0 mt-2 w-44 bg-white text-black shadow-lg rounded-md text-sm z-20 animate-fade-in">
               {renderMenuItems(aboutMenu)}
             </ul>
           )}
         </div>
 
         {/* Contacts */}
-        <Link
-          to="/contacts"
-          className={`font-semibold px-2 py-1 rounded-md transition-colors hover:bg-blue-800 ${
-            activeSubmenu === "/contacts" ? "text-blue-300 font-semibold" : ""
+        <button
+          onClick={() => handleNavigation("/contacts")}
+          className={`px-3 py-2 rounded-md transition-colors ${
+            activeSubmenu === "/contacts"
+              ? "bg-blue-700 text-white"
+              : "hover:bg-blue-800"
           }`}
-          onClick={() => setActiveSubmenu("/contacts")}
         >
           Contacts
-        </Link>
+        </button>
 
         {/* Book Demo */}
-        <Link
-          to="/book-demo"
-          className={`px-5 py-2 rounded-full transition-colors ${
+        <button
+          onClick={() => handleNavigation("/book-demo")}
+          className={`px-5 py-2 rounded-full ml-6 transition-colors ${
             activeSubmenu === "/book-demo"
               ? "bg-blue-700 text-white"
               : "bg-blue-600 text-white hover:bg-gray-800"
           }`}
-          onClick={() => setActiveSubmenu("/book-demo")}
         >
           Book a Demo
-        </Link>
+        </button>
       </nav>
 
       {/* Mobile Hamburger */}
@@ -150,12 +162,12 @@ const Nav = () => {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="absolute top-16 left-0 w-full bg-amber-100 shadow-md flex flex-col items-start p-6 space-y-4 md:hidden z-50 relative">
+        <div className="absolute top-16 left-0 w-full bg-white text-black shadow-md flex flex-col items-start p-6 space-y-4 md:hidden z-50 animate-slide-down">
           {/* Elements */}
           <div className="w-full">
             <button
               onClick={() => handleToggle("elements")}
-              className="flex items-center justify-between w-full font-semibold"
+              className="flex items-center justify-between w-full font-semibold px-3 py-2"
             >
               Elements{" "}
               {openDropdown === "elements" ? (
@@ -165,7 +177,9 @@ const Nav = () => {
               )}
             </button>
             {openDropdown === "elements" && (
-              <ul className="pl-4 space-y-2 w-full">{renderMenuItems(elementsMenu)}</ul>
+              <ul className="pl-4 space-y-2 w-full animate-fade-in">
+                {renderMenuItems(elementsMenu)}
+              </ul>
             )}
           </div>
 
@@ -173,42 +187,45 @@ const Nav = () => {
           <div className="w-full">
             <button
               onClick={() => handleToggle("about")}
-              className="flex items-center justify-between w-full font-semibold"
+              className="flex items-center justify-between w-full font-semibold px-3 py-2"
             >
               About{" "}
-              {openDropdown === "about" ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+              {openDropdown === "about" ? (
+                <ChevronUp size={16} />
+              ) : (
+                <ChevronDown size={16} />
+              )}
             </button>
             {openDropdown === "about" && (
-              <ul className="pl-4 space-y-2 w-full">{renderMenuItems(aboutMenu)}</ul>
+              <ul className="pl-4 space-y-2 w-full animate-fade-in">
+                {renderMenuItems(aboutMenu)}
+              </ul>
             )}
           </div>
 
           {/* Contacts */}
-          <Link
-            to="/contacts"
-            className={`font-semibold w-full ${
-              activeSubmenu === "/contacts" ? "text-blue-600 font-semibold" : ""
+          <button
+            onClick={() => handleNavigation("/contacts")}
+            className={`font-semibold w-full text-left px-3 py-2 rounded-md ${
+              activeSubmenu === "/contacts"
+                ? "bg-blue-700 text-white"
+                : "hover:bg-gray-200"
             }`}
-            onClick={() => {
-              setActiveSubmenu("/contacts");
-              setMobileOpen(false);
-            }}
           >
             Contacts
-          </Link>
+          </button>
 
-          {/* Bok Demo */}
-          <Link
-            to="/book-demo"
+          {/* Book Demo */}
+          <button
+            onClick={() => handleNavigation("/book-demo")}
             className={`px-5 py-2 rounded-full transition-colors w-full text-center ${
               activeSubmenu === "/book-demo"
                 ? "bg-blue-700 text-white"
-                : "bg-blue-600 text-white hover:bg-gray-800"
+                : "bg-blue-600 text-white hover:bg-black"
             }`}
-            onClick={() => setActiveSubmenu("/book-demo")}
           >
             Book a Demo
-          </Link>
+          </button>
         </div>
       )}
     </header>

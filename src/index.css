@@ -8,8 +8,28 @@
   --font-lora: 'Lora', serif;
 }
 
+/* Navbar styles */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.animate-slide-down {
+  animation: slideDown 0.3s ease-in-out;
+}
 
 
+/*6 images sliders*/
 @keyframes slide-left {
   0% {
     opacity: 0;
@@ -39,3 +59,7 @@
 .animate-slide-right {
   animation: slide-right 1s ease-out forwards;
 }
+
+
+
+

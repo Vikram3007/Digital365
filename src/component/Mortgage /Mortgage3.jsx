@@ -13,14 +13,14 @@ const Mortgage3 = () => {
   return (
     <>
       {/* Section 1 */}
-      <section className="py-12 px-5 md:px-20">
-        <div className="max-w-5xl mx-auto text-center md:text-left space-y-6">
-          <p className="text-xl md:text-3xl font-lora font-bold text-gray-800">
+      <section className="py-12 flex justify-center px-5 md:px-20">
+        <div className=" text-center md:text-left space-y-6">
+          <p className="text-xl md:text-3xl font-lora  font-bold text-gray-800">
             <span>Switching your CRM </span>
             is hassle-free with <span>Smartr365</span>
           </p>
 
-          <p className="text-gray-700 font-semibold text-base md:text-2xl leading-relaxed">
+          <p className="text-gray-700 font-semibold mr text-base md:text-2xl leading-relaxed">
             Our integrated tools ensure smooth data migration.{" "}
             <span className="block md:ml-10">
               Onboarding, data migration, and training are all included in one
@@ -28,7 +28,7 @@ const Mortgage3 = () => {
             </span>
           </p>
 
-          <button className="bg-black text-white px-6 py-2 rounded-full hover:bg-blue-700 transition mx-auto md:mx-0 block">
+          <button className="bg-black text-white px-6 py-2 rounded-full hover:bg-blue-700 transition mx-auto md:items-center block">
             Book a demo
           </button>
         </div>
