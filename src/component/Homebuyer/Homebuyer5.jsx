@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom' // ✅ Correct import
 
 const Homebuyer5 = () => {
 
@@ -79,10 +80,13 @@ const Homebuyer5 = () => {
             – Alan McConville, Adviser at Pure Protect Ltd
           </p>
 
-          {/* Button */}
-          <button className="bg-black text-white px-6 py-2 rounded-full hover:bg-blue-700 transition mt-4">
+          {/* Link styled as button */}
+          <Link
+            to="/book-demo" // ✅ Target route
+            className="bg-black text-white px-6 py-2 rounded-full hover:bg-blue-700 transition mt-4"
+          >
             Book a demo
-          </button>
+          </Link>
         </div>
       </div>
     </>

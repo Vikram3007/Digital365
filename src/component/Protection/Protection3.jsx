@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from  'react-router-dom'
 
 const Protection3 = () => {
   return (
@@ -12,9 +13,14 @@ const Protection3 = () => {
           Protection advisers seeking an intuitive interface, Mortgage advisers exploring the protection arena, 
           or those wanting an all-in-one solution.
         </p>
-        <button className="px-6 py-3 bg-black text-white font-semibold rounded-full hover:bg-blue-500 transition">
+              {/* Link styled as button */}
+        <Link
+          to="/book-demo" // Replace with your target route
+          className="px-6 py-3 bg-black text-white font-semibold rounded-full hover:bg-blue-500 transition"
+        >
           Book a demo
-        </button>
+        </Link>
+
       </div>
 
       {/* YouTube Video */}
@@ -55,9 +61,14 @@ const Protection3 = () => {
             – Alan McConville, Adviser at Pure Protect Ltd
           </p>
 
-          <button className="bg-black text-white px-6 py-2 rounded-full hover:bg-blue-700 transition mt-4">
-            Book a demo
-          </button>
+                 {/* Link styled as button */}
+        <Link
+          to="/book-demo" // Replace with your route
+          className="bg-black text-white px-6 py-2 rounded-full hover:bg-blue-700 transition mt-4"
+        >
+          Book a demo
+        </Link>
+
         </div>
       </div>
     </>

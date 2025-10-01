@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from 'react-router-dom';
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -21,15 +22,19 @@ const Mortgage3 = () => {
           </p>
 
           <p className="text-gray-700 font-semibold mr text-base md:text-2xl leading-relaxed">
-            Our integrated tools ensure smooth data migration.{" "}
-            <span className="block md:ml-10">
-              Onboarding, data migration, and training are all included in one
-              flat fee.
+            ‍Our integrated tools ensure smooth data migration. Onboarding, data{" "}
+            <span className="block md:ml-20">
+             migration, and training are all included in one flat fee. 
+
             </span>
           </p>
-
-          <button className="bg-black text-white px-6 py-2 rounded-full hover:bg-blue-700 transition mx-auto md:items-center block">
-            Book a demo
+          <button>
+            <Link 
+              to="/book-demo" 
+              className="bg-black text-white px-6 py-2  rounded-full hover:bg-blue-700 transition mx-65 md:items-center block"
+            >
+              Book a demo
+            </Link>
           </button>
         </div>
       </section>

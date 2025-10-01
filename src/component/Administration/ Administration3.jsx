@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; 
 
 const Administration3 = () => {
   return (
@@ -26,10 +27,14 @@ const Administration3 = () => {
             – Alan McConville, Adviser at Pure Protect Ltd
           </p>
 
-          {/* Button */}
-          <button className="bg-black text-white px-6 py-2 md:px-8 md:py-3 rounded-full hover:bg-blue-700 transition">
-            Book a demo
-          </button>
+                {/* Link styled as button */}
+        <Link
+          to="/book-demo" // Replace with your target route
+          className="px-6 py-3 bg-black text-white font-semibold rounded-full hover:bg-blue-500 transition"
+        >
+          Book a demo
+        </Link>
+
         </div>
       </div>
     </>

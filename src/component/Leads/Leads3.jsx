@@ -1,6 +1,7 @@
 import React from 'react'
+import { Link } from 'react-router-dom' // ✅ Correct import
 
-const Leads3= () => {
+const Leads3 = () => {
   return (
     <>
       {/* Testimonial Card */}
@@ -22,10 +23,14 @@ const Leads3= () => {
             – Alan McConville, Adviser at Pure Protect Ltd
           </p>
 
-          {/* Button */}
-          <button className="bg-black text-white px-6 py-2 rounded-full hover:bg-blue-700 transition mt-4">
+          {/* Link styled as button */}
+          <Link
+            to="/book-demo" // Replace with your target route
+            className="px-6 py-3 bg-black text-white font-semibold rounded-full hover:bg-blue-500 transition"
+          >
             Book a demo
-          </button>
+          </Link>
+
         </div>
       </div>
     </>

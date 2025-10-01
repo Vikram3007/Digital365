@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Mortgage4 = () => {
   return (
@@ -39,10 +40,13 @@ const Mortgage4 = () => {
             – Alan McConville, Adviser at Pure Protect Ltd
           </p>
 
-          {/* Button */}
-          <button className="bg-black text-white px-6 py-2 md:px-8 md:py-3 rounded-full hover:bg-blue-700 transition">
+          {/* Link Button */}
+          <Link
+            to="/book-demo"  // <-- Replace with your route
+            className="bg-black text-white px-6 py-2 md:px-8 md:py-3 rounded-full hover:bg-blue-700 transition"
+          >
             Book a demo
-          </button>
+          </Link>
         </div>
       </div>
     </>
