@@ -16,7 +16,7 @@ const Footer = () => {
             <p className="text-sm leading-relaxed max-w-sm">
               Digital.³⁶⁵™ is an end-to-end mortgage and protection platform connecting advisors, estate agents and home buyers.
             </p>
-            <Link to="/book-dome" className="mt-4 w-40 px-5 py-3 mx-4  bg-blue-500 text-white rounded-full hover:bg-blue-400 transition-colors">
+            <Link to="/book-demo" className="mt-4 w-40 px-5 py-3 mx-4  bg-blue-500 text-white rounded-full hover:bg-blue-400 transition-colors">
               Book a demo
             </Link>
           </div>
