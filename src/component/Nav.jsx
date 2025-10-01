@@ -66,7 +66,7 @@ const Nav = () => {
 
   return (
     <header
-      className="flex items-center justify-between px-6 md:px-10 py-4 bg-amber-500 text-white shadow relative"
+      className="flex items-center justify-between px-6 md:px-10 py-4 md:bg-amber-500 bg-black text-white shadow relative"
       ref={navRef}
     >
       {/* Logo */}
