@@ -82,7 +82,7 @@ const Contacts2 = () => {
       : "";
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gray-50 flex items-center font-roboto font-semibold justify-center px-4">
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-lg rounded-lg p-6 w-full max-w-lg space-y-5"

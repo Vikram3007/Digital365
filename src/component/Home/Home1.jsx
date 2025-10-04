@@ -1,43 +1,46 @@
-import React from 'react';
-import Home2 from '../Home/Home2'
+import React from 'react'
+import Home2 from './Home2'
 
 const Home1 = () => {
   return (
     <>
-      {/* Content Section */}
-      <div className="md:absolute w-full md:w-auto top-20 md:top-20 md:left-20 z-10">
-        <div className="bg-blue-700 md:bg-transparent px-6 py-4 md:px-0 text-center md:text-left text-white font-bold">
-          <h1 className="text-2xl w-88 md:text-3xl ">
-            Join the most extensive mortgage & protection platform in the UK
-          </h1>
+      <div 
+        className="h-screen bg-blue-500 bg-cover bg-center relative" 
+        style={{ backgroundImage: "url('/home1.svg')" }}
+      >
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-black/50"></div>
+
+        {/* flex container */}
+        <div className="relative z-10 flex items-center justify-between h-full px-10">
+          
+          {/* Left Side - Text */}
+          <div className="flex-1 mb-28 mx-10">
+            <h1 className="text-white text-5xl font-semibold font-lora max-w-xl ">
+              Join the most extensive mortgage & protection platform in the UK
+            </h1>
+          </div>
+
+          {/* Right Side - GIF */}
+          <div className="flex-1 flex justify-center">
+            <img 
+              src="/homegif1.gif" 
+              alt="Mortgage Platform" 
+              className="max-w-md w-full"
+            />
+          </div>
+        </div>
+
+        {/* Home2 absolute inside Home1 */}
+        <div className="absolute left-1/2 -translate-x-1/2 bottom-[-520px] w-full px-4 z-20">
+          <Home2 />
         </div>
       </div>
 
-      {/* Main Section */}
-      <div className="md:bg-blue-900 bg-blue-500 flex flex-col items-center text-white">
-        {/* Images Section */}
-        <div className="flex flex-col-reverse md:flex-row w-full">
-          {/* Left Image (shows last on mobile) */}
-          <div className="md:h-full md:w-1/2">
-            <img
-              src="/home1.svg"
-              alt="Dashboard Preview"
-              className="w-full h-full md:h-96 object-cover"
-            />
-          </div>
-          {/* Right Image (shows first on mobile) */}
-          <div className="md:h-full md:w-1/2">
-            <img
-              src="/homegif1.gif"
-              alt="Workflow Animation"
-              className="w-full h-auto md:h-96 object-cover"
-            />
-          </div>
-        </div>
-      </div>
-      <Home2/>
+      {/* space for Home2 overlap */}
+      <div className="h-[250px]"></div>
     </>
-  );
-};
+  )
+}
 
-export default Home1;
+export default Home1

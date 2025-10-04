@@ -3,6 +3,8 @@ import Contacts1 from '../Contact/Contacts1'
 import Contacts2 from '../Contact/Contacts2'
 import Contacts3 from '../Contact/Contacts3'
 
+import Footer from '../Footer'
+
 const Contacts = () => {
   return (
     <>
@@ -11,6 +13,9 @@ const Contacts = () => {
 
    <Contacts2 />
    <Contacts3 />
+
+
+   <Footer />
          </>
   )
 }

@@ -1,8 +1,10 @@
 import React from 'react'
-
+import Contacts from './Contacts'
 const BookDemo = () => {
   return (
-    <div>BookDemo</div>
+   <>
+   <Contacts />
+   </>
   )
 }
 
