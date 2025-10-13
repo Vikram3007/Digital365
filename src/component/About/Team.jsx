@@ -99,7 +99,7 @@ const Team = () => {
 
               {/* Description */}
               <div className="md:w-2/3">
-                <p className="text-gray-700 leading-relaxed text-base">{member.description}</p>
+                <p className="text-gray-700 leading-relaxed mt-5 text-base">{member.description}</p>
               </div>
             </div>
           ))}
