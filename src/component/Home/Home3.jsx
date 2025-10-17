@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Home4 from "./Home4";
 
 const Home3 = () => {
   return (
     <>
       <div
-        className="max-w-6xl min-h-[550px] mx-auto my-70 p-8 md:p-12 rounded-2xl text-white 
+        className="max-w-6xl min-h-[550px] mx-auto  my-15 p-8 md:p-12 rounded-2xl text-white 
         bg-[url('/home2.svg')] bg-blue-600 bg-cover bg-center flex flex-col md:flex-row items-center gap-10"
       >
         {/* Left GIF */}
@@ -46,6 +47,7 @@ const Home3 = () => {
           </div>
         </div>
       </div>
+      <Home4 />
     </>
   );
 };

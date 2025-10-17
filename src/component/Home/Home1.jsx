@@ -1,6 +1,7 @@
 import React from "react";
 import Home2 from "./Home2";
-import Home3 from "./Home3";
+
+
 
 const Home1 = () => {
   return (
@@ -32,17 +33,18 @@ const Home1 = () => {
           </div>
         </div>
 
+       
         {/* Home2 absolute inside Home1 */}
-        <div className="absolute left-1/2 -translate-x-1/2 bottom-[-520px] w-full px-4 z-20">
+        <div className="absolute left-1/2 -translate-x-1/2 top-[500px] w-full px-4 z-20">
           <Home2 />
         </div>
       </div>
 
       {/* Space for Home2 overlap */}
-      <div className="h-[250px] sm:h-[280px] md:h-[300px]"></div>
+      <div className="h-[250px] sm:h-[280px] md:h-[300px] "></div>
 
       {/* Next Section */}
-      <Home3 />
+    
     </>
   );
 };
