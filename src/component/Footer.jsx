@@ -57,7 +57,7 @@ const Footer = () => {
         {/* Footer Bottom */}
         <div className="text-center text-sm space-y-2">
           <p>Terms of service | Cookie Policy | Privacy Policy | D&I Statement</p>
-          <p>© 2023 Smart365™ Finance Limited - Company Number 09497227</p>
+          <p>© 2025 digital365™ Finance Limited - Company Number 09497227</p>
         </div>
       </div>
     </div>
